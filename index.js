@@ -12,7 +12,7 @@ const app = express();
 const corsOptions = {
     origin: [
         "http://localhost:5173",
-        "https://blog-8otqgyrw7-ents2.vercel.app"
+        "https://blog-q9cmrth3f-ents2.vercel.app"
     ],
     credentials: true,
     optionsSuccessStatus: 200
