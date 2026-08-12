@@ -1,3 +1,4 @@
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -9,7 +10,10 @@ const postRoutes = require("./routes/post");
 const app = express();
 
 const corsOptions = {
-    origin: ["http://localhost:5173"],
+    origin: [
+        "http://localhost:5173",
+        "https://blog-8otqgyrw7-ents2.vercel.app"
+    ],
     credentials: true,
     optionsSuccessStatus: 200
 };
@@ -21,23 +25,36 @@ app.use(express.json());
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 
+
 // Database connection
 mongoose.connect(process.env.MONGO_STRING);
 
 let db = mongoose.connection;
 
-db.on("error", console.error.bind(console, "connection error"));
+db.on(
+    "error",
+    console.error.bind(console, "connection error")
+);
 
 db.once("open", () => {
     console.log("We're connected to the cloud database");
 });
 
+
 if (require.main == module) {
-    app.listen(process.env.PORT || 3000, () => {
-        console.log(
-            `Server is running at port ${process.env.PORT || 3000}`
-        );
-    });
+
+    app.listen(
+        process.env.PORT || 3000,
+        () => {
+            console.log(
+                `Server is running at port ${process.env.PORT || 3000}`
+            );
+        }
+    );
 }
 
-module.exports = { app, mongoose };
+module.exports = {
+    app,
+    mongoose
+};
+
